@@ -1,0 +1,10 @@
+POST http://127.0.0.1:8000/new_sale/
+Content-Type: application/json
+
+{
+  "products": [{"title": "Romantiche serate teatine", "state": "new", "price": 50}, {"title": "Biplano", "state": "of", "price": 100}],
+  "client_id": 35425795,
+  "payment_method": "cash",
+  "email": "messina8@gmail.com",
+  "total": 150
+}
