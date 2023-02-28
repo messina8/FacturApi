@@ -5,7 +5,7 @@ from random import random, randrange, choice, randint
 from string import ascii_letters
 
 import Sale
-from Product import State
+from Product import State, Supplier
 from Sale import Payment
 
 suppliers = ['pla', 'sud', 'riv', 'vyr', None]
@@ -24,7 +24,7 @@ def random_products(qty=1):
     for i in range(qty):
         item = {'title': random_string(), 'state': choice(list(State)), 'price': randrange(1000, 15000, 50)}
         if item['state'] == 'new':
-            item['supplier'] = choice(suppliers)
+            item['supplier'] = choice(list(Supplier))
         items.append(item)
     return items
 

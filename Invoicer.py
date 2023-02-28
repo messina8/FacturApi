@@ -1,7 +1,7 @@
 from datetime import date
 
 from Product import Product
-from Sale import Sale, Venta
+from Sale import Sale
 from Purchase import Purchase
 
 

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from enum import Enum
 
 
@@ -8,8 +8,15 @@ class State(str, Enum):
     of = 'of'
 
 
+class Supplier(str, Enum):
+    PLA = 'pla'
+    SUD = 'sud'
+    RIV = 'riv'
+    VYR = 'vyr'
+
+
 class Product(BaseModel):
     title: str
     state: State
-    supplier: str | None = None
-    price: int
+    supplier: Supplier | None = None
+    price: int = Field(..., gt=0)
