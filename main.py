@@ -1,5 +1,7 @@
+import uvicorn
 from fastapi import FastAPI
 
+import frontend
 from Invoicer import Invoicer
 from Sale import Sale
 
@@ -7,9 +9,9 @@ app = FastAPI()
 invoicer = Invoicer()
 
 
-@app.get("/")
-async def home():
-    return {'Welcome message': 'El Rio Software: Invoicer'}
+# @app.get("/")
+# async def home():
+#     return {'Welcome message': 'El Rio Software: Invoicer'}
 
 
 @app.post("/new_sale/")
@@ -35,3 +37,7 @@ async def create_invoice(index: int):
     return sale
 
 
+frontend.init(app, invoicer)
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.0', port=8000)

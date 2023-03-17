@@ -22,7 +22,7 @@ class Invoicer:
         products = []
         for p in products_data:
             products.append(p)
-        venta = Venta(products, payment_method, sale_date, client_id, email)
+        venta = Sale(products, payment_method, sale_date, client_id, email)
         self.sales.append(venta)
 
     async def new_sale(self, sale: Sale):

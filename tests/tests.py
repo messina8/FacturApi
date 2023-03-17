@@ -34,14 +34,13 @@ def random_sales(qty=1):
     for i in range(qty):
         sale = {'products': random_products(randint(1, 8)), 'client_id': randint(1000000, 45000000),
                 'payment_method': choice(list(Payment)), 'email': 'whatever@whatever.com'}
-        total = 0
-        for s in sale['products']:
-            total += s['price']
-        sale['total'] = total
         sales.append(sale)
     return sales
 
 
 def post_sales(sales: list[Sale.Sale], url=localhost):
+    results = []
     for i in sales:
-        requests.post(url + 'new_sale/', json.dumps(i))
+        r = requests.post(url + 'new_sale/', json.dumps(i))
+        results.append(r)
+    return results
