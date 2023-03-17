@@ -44,3 +44,5 @@ def post_sales(sales: list[Sale.Sale], url=localhost):
         r = requests.post(url + 'new_sale/', json.dumps(i))
         results.append(r)
     return results
+
+

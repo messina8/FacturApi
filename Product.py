@@ -5,7 +5,7 @@ from enum import Enum
 class State(str, Enum):
     used = 'used'
     new = 'new'
-    of = 'of'
+    offer = 'offer'
 
 
 class Supplier(str, Enum):
