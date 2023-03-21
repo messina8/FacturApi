@@ -39,6 +39,7 @@ class NewSale(ui.row):
             ui.input('e-mail')
 
             def create_sale():
-                pass
+                for i in products.slots:
+                    print(i)
 
-            ui.button('Create Sale', on_click=lambda: invoicer.new_sale(sale=Sale()))
+            ui.button('New Sale', on_click=lambda: create_sale())

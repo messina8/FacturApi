@@ -38,6 +38,7 @@ class Sale:
             print('Calling Tango API')
             self.invoice_number = None  # debería volver con la llamada a la API
             self.done = True
+        return self.done
 
     def send_mail(self):
         if self.done:
