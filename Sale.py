@@ -3,8 +3,8 @@ from datetime import date
 from enum import Enum
 
 
-from pydantic import BaseModel, ValidationError, validator
-from pydantic.dataclasses import dataclass, Field
+from pydantic import BaseModel, ValidationError, validator, Field
+from pydantic.dataclasses import dataclass
 from Product import Product
 
 
