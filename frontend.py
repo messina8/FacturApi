@@ -3,14 +3,16 @@ from nicegui import ui, Client
 from datetime import date
 import time
 
+from Header import Header
 from Invoicer import Invoicer
 from DisplayRows import DisplayRow
-from NewSale import NewSale
+from NewSale import NewSale, SaleDialog
 
 
 def init(app: FastAPI, invoicer: Invoicer) -> None:
     @ui.page('/')
-    def show():
+    def home():
+        Header(home=True)
         ui.label('Welcome to El Rio Software Invoice Microservice!')
 
     @ui.page('/invoices/')
@@ -25,21 +27,23 @@ def init(app: FastAPI, invoicer: Invoicer) -> None:
             with ui.row().classes('items-center justify-between'):
                 ui.button(on_click=lambda: left_drawer.toggle()).props('flat color=white icon=menu')
                 ui.label('El Rio Software').style('color: #hhhhhh').classes('font-serif')
-            ui.button().props('flat color=white icon=add')
+
+            with SaleDialog() as dialog, ui.card().classes('width:100% center'):
+                NewSale(invoicer)
+                ui.button('close', on_click=dialog.close).classes('center')
+            with ui.row():
+                ui.button('Add Sale', on_click=dialog.open).props('flat color=white icon=add')
+                ui.button('Add Purchase', on_click=dialog.open).props('flat color=white icon=add')
             ui.button().props('flat color=white icon=home')
-            with ui.left_drawer(value=False, top_corner=False, bottom_corner=True).style('background-color: #0e3c45') as left_drawer:
+            with ui.left_drawer(value=False, top_corner=False, bottom_corner=True).style(
+                    'background-color: #0e3c45') as left_drawer:
                 ui.label('LEFT DRAWER').style('color: #hhhhhh').classes('font-serif')
 
         with column:
             for num, sale in enumerate(sales):
                 DisplayRow(sale, num)
                 row += 1
-            NewSale(invoicer)
-
-        async def refresh():
-            column.update()
-
-        ui.timer(0.1, refresh)
+            # NewSale(invoicer)
 
     @ui.page('/test_page')
     async def test_page():

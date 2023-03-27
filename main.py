@@ -1,17 +1,33 @@
+from typing import Annotated
+
 import uvicorn
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
+from fastapi.security import OAuth2PasswordBearer
 
 import frontend
 from Invoicer import Invoicer
 from Sale import Sale
+from User import User, fake_decode_token, fake_users_db
 
 app = FastAPI()
 invoicer = Invoicer()
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-# @app.get("/")
-# async def home():
-#     return {'Welcome message': 'El Rio Software: Invoicer'}
+
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+    user = fake_decode_token(token)
+    return user
+
+
+@app.get("/users/me")
+async def read_users_me(current_user: Annotated[User, Depends(get_current_user)]):
+    return current_user
+
+
+@app.get("/auth/")
+async def auth(token: Annotated[str, Depends(oauth2_scheme)]):
+    return {'token': token}
 
 
 @app.post("/new_sale/")
